@@ -8,6 +8,18 @@
                 "description": "Number of VMs to deploy"
             }
         },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": "User Name for student VMs"
+            }
+        },
+        "adminPassword": {
+            "type": "string",
+            "metadata": {
+                "description": "Password for student VMs"
+            }
+        },
         "publicDNSUniqueString": {
             "type": "string",
             "metadata": {
@@ -18,8 +30,6 @@
     "variables": {
         "location": "Central US",
         "vmSize": "Standard_DS2",
-        "adminUsername": "student",
-        "adminPassword": "Password.1",
         "windowsOSVersion": "2012-R2-Datacenter",
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
@@ -111,8 +121,8 @@
                 },
                 "osProfile": {
                     "computername": "[concat('student-', copyIndex(), '-vm')]",
-                    "adminUsername": "[variables('adminUsername')]",
-                    "adminPassword": "[variables('adminPassword')]"
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]"
                 },
                 "storageProfile": {
                     "imageReference": {
