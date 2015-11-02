@@ -44,7 +44,7 @@
         "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]",
 
     },
-    "resources": [{
+    "resources": [ {
             "type": "Microsoft.Storage/storageAccounts",
             "name": "[variables('studentVMStorageAccountName')]",
             "apiVersion": "2015-05-01-preview",
@@ -152,5 +152,5 @@
                     }
                 }
 
-            }]
+            } ]
     }
