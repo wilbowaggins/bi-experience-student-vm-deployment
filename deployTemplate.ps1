@@ -11,5 +11,5 @@ $deployName="TestDeployment"
 $RGName="biexperiencevms"
 $locname="Central US"
 $templateURI=".\azuredeploy.json"
-New-AzureResourceGroup –Name $RGName –Location $locName
+New-AzureResourceGroup -Name $RGName -Location $locName
 New-AzureResourceGroupDeployment -Name $deployName -ResourceGroupName $RGName -TemplateUri $templateURI
