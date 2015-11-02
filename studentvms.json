@@ -25,8 +25,6 @@
     "imageOffer": "WindowsServer",
     "studentVMStorageAccountName": "biexperiencevmstorage",
     "studentVMBootDiagnosticsStorageAccountName": "biexperiencevmbootdiags",
-    "scriptFileLocation": "https://raw.githubusercontent.com/markgar/bi-ezxperience-deploy-template/master",
-    "scriptFileName": "serversetup.ps1",
     "storageAccountType": "Premium_LRS",
     "vmStorageAccountContainerName": "vhds",
     "virtualNetworkResourceGroupName": "biexperienceresources",
@@ -151,26 +149,6 @@
              "enabled": "true",
              "storageUri": "[concat('http://',variables('studentVMBootDiagnosticsStorageAccountName'),'.blob.core.windows.net')]"
           }
-        }
-      },
-      "resources": [
-        {
-            "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat('student-', copyIndex(), '-vm', '/CustomScriptExtension')]",
-            "apiVersion": "2015-05-01-preview",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', 'student-', copyIndex(), '-vm')]"
-            ],
-            "properties": {
-             "publisher": "Microsoft.Compute",
-             "type": "CustomScriptExtension",
-               "typeHandlerVersion": "1.2",
-               "settings": {
-                   "fileUris": [ "[concat(parameters('scriptFileLocation'), '/', parameters('scriptFileName'))]" ],
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ',parameters('scriptFileName'))]"
-               }
-           }
         }
       ]
     }
