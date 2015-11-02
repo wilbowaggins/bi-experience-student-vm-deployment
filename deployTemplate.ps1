@@ -1,3 +1,5 @@
+Set-ExecutionPolicy Unrestricted
+
 add-azureaccount
 
 Select-AzureSubscription -SubscriptionName "MTC Workshop"
