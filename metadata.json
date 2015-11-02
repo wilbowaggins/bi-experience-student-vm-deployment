@@ -1,7 +1,7 @@
 {
-  "itemDisplayName": "Azure DNS domain hosting example",
-  "description": "This template shows how to create a DNS zone within Azure DNS and how to add some record sets to it.",
-  "summary": "This template creates a DNS zone within the Azure DNS resource provider.  It then creates a RecordSet containing two DNS A records within that zone.",
-  "githubUsername": "GarethBradshawMSFT",
-  "dateUpdated": "2015-06-12"
+  "itemDisplayName": "Set up BI Experience Infrastructure",
+  "description": "This sets up the infrastrucutre necessary to run a DIAD or BI Experience",
+  "summary": "This template sets up student VMs needed for a DIAD or BI Experience.",
+  "githubUsername": "markgar",
+  "dateUpdated": "2015-11-02"
 }
