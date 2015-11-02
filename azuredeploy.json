@@ -1,157 +1,146 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "numberOfInstances": {
-      "type": "int",
-      "metadata": {
-        "description": "Number of VMs to deploy"
-      }
-    },
-    "publicDNSUniqueString": {
-      "type": "string",
-      "metadata": {
-        "description": "A unique string that will be added to the public DNS.  Try MMDD.  You'll get student11028.  (October 28th, Student 1)"
-      }
-    }
-  },
-  "variables": {
-    "location": "Central US",
-    "vmSize": "Standard_DS2",
-    "adminUsername": "student",
-    "adminPassword": "Password.1",
-    "windowsOSVersion": "2012-R2-Datacenter",
-    "imagePublisher": "MicrosoftWindowsServer",
-    "imageOffer": "WindowsServer",
-    "studentVMStorageAccountName": "biexperiencevmstorage",
-    "studentVMBootDiagnosticsStorageAccountName": "biexperiencevmbootdiags",
-    "storageAccountType": "Premium_LRS",
-    "vmStorageAccountContainerName": "vhds",
-    "virtualNetworkResourceGroupName": "biexperienceresources",
-    "virtualNetworkName": "biexpnet",
-    "subnetName": "default",
-    "vnetID": "[resourceId(variables('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
-    "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]",
- 
-  },
-  "resources": [
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('studentVMStorageAccountName')]",
-      "apiVersion": "2015-05-01-preview",
-      "location": "[variables('location')]",
-      "properties": {
-        "accountType": "[variables('storageAccountType')]"
-      }
-    },
-    {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('studentVMBootDiagnosticsStorageAccountName')]",
-      "apiVersion": "2015-05-01-preview",
-      "location": "[variables('location')]",
-      "properties": {
-        "accountType": "Standard_LRS"
-      }
-    },
-    {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat('student-', copyIndex(), '-publicip')]",
-      "location": "[variables('location')]",
-      "copy": {
-        "name": "publicIPLoop",
-        "count": "[parameters('numberOfInstances')]"
-      },
-      "properties": {
-        "publicIPAllocationMethod": "dynamic",
-        "dnsSettings": {
-          "domainNameLabel": "[concat('student', copyIndex(), parameters('publicDNSUniqueString'))]"
-        }
-      }
-    },
-    {
-      "apiVersion": "2015-05-01-preview",
-      "type": "Microsoft.Network/networkInterfaces",
-      "name": "[concat('student-', copyIndex(), '-nic')]",
-      "location": "[variables('location')]",
-      "copy": {
-        "name": "nicLoop",
-        "count": "[parameters('numberOfInstances')]"
-      },
-      "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', 'student-', copyIndex(), '-publicip')]"
-      ],
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
-            "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('student-', copyIndex(), '-publicip'))]"
-              },
-              "subnet": {
-                "id": "[variables('subnetRef')]"
-              }
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "numberOfInstances": {
+            "type": "int",
+            "metadata": {
+                "description": "Number of VMs to deploy"
             }
-          }
-        ]
-      }
-    },
-    {
-      "apiVersion": "2015-06-15",
-      "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat('student-', copyIndex(), '-vm')]",
-      "location": "[variables('location')]",
-      "copy": {
-        "name": "vmLoop",
-        "count": "[parameters('numberOfInstances')]"
-      },      
-      "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', variables('studentVMBootDiagnosticsStorageAccountName'))]",
-        "[concat('Microsoft.Storage/storageAccounts/', variables('studentVMStorageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', concat('student-', copyIndex(), '-nic'))]"
-      ],
-      "properties": {
-        "hardwareProfile": {
-          "vmSize": "[variables('vmSize')]"
         },
-        "osProfile": {
-          "computername": "[concat('student-', copyIndex(), '-vm')]",
-          "adminUsername": "[variables('adminUsername')]",
-          "adminPassword": "[variables('adminPassword')]"
-        },
-        "storageProfile": {
-          "imageReference": {
-            "publisher": "[variables('imagePublisher')]",
-            "offer": "[variables('imageOffer')]",
-            "sku": "[variables('windowsOSVersion')]",
-            "version": "latest"
-          },
-          "osDisk": {
-            "name": "osdisk",
-            "vhd": {
-              "uri": "[concat('http://',variables('studentVMStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/','student', copyindex(), 'osdisk','.vhd')]"
-            },
-            "caching": "ReadWrite",
-            "createOption": "FromImage"
-          }
-        },
-        "networkProfile": {
-          "networkInterfaces": [
-            {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat('student-', copyIndex(), '-nic'))]"
+        "publicDNSUniqueString": {
+            "type": "string",
+            "metadata": {
+                "description": "A unique string that will be added to the public DNS.  Try MMDD.  You'll get student11028.  (October 28th, Student 1)"
             }
-          ]
-        },
-        "diagnosticsProfile": {
-          "bootDiagnostics": {
-             "enabled": "true",
-             "storageUri": "[concat('http://',variables('studentVMBootDiagnosticsStorageAccountName'),'.blob.core.windows.net')]"
-          }
         }
-      ]
-    }
-  ]
-}
+    },
+    "variables": {
+        "location": "Central US",
+        "vmSize": "Standard_DS2",
+        "adminUsername": "student",
+        "adminPassword": "Password.1",
+        "windowsOSVersion": "2012-R2-Datacenter",
+        "imagePublisher": "MicrosoftWindowsServer",
+        "imageOffer": "WindowsServer",
+        "studentVMStorageAccountName": "biexperiencevmstorage",
+        "studentVMBootDiagnosticsStorageAccountName": "biexperiencevmbootdiags",
+        "storageAccountType": "Premium_LRS",
+        "vmStorageAccountContainerName": "vhds",
+        "virtualNetworkResourceGroupName": "biexperienceresources",
+        "virtualNetworkName": "biexpnet",
+        "subnetName": "default",
+        "vnetID": "[resourceId(variables('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+        "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]",
 
+    },
+    "resources": [{
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('studentVMStorageAccountName')]",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[variables('location')]",
+            "properties": {
+                "accountType": "[variables('storageAccountType')]"
+            }
+        }, {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('studentVMBootDiagnosticsStorageAccountName')]",
+            "apiVersion": "2015-05-01-preview",
+            "location": "[variables('location')]",
+            "properties": {
+                "accountType": "Standard_LRS"
+            }
+        }, {
+            "apiVersion": "2015-05-01-preview",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[concat('student-', copyIndex(), '-publicip')]",
+            "location": "[variables('location')]",
+            "copy": {
+                "name": "publicIPLoop",
+                "count": "[parameters('numberOfInstances')]"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "[concat('student', copyIndex(), parameters('publicDNSUniqueString'))]"
+                }
+            }
+        }, {
+            "apiVersion": "2015-05-01-preview",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[concat('student-', copyIndex(), '-nic')]",
+            "location": "[variables('location')]",
+            "copy": {
+                "name": "nicLoop",
+                "count": "[parameters('numberOfInstances')]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Network/publicIPAddresses/', 'student-', copyIndex(), '-publicip')]"
+            ],
+            "properties": {
+                "ipConfigurations": [{
+                    "name": "ipconfig1",
+                    "properties": {
+                        "privateIPAllocationMethod": "Dynamic",
+                        "publicIPAddress": {
+                            "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('student-', copyIndex(), '-publicip'))]"
+                        },
+                        "subnet": {
+                            "id": "[variables('subnetRef')]"
+                        }
+                    }
+                }]
+            }
+        }, {
+            "apiVersion": "2015-06-15",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[concat('student-', copyIndex(), '-vm')]",
+            "location": "[variables('location')]",
+            "copy": {
+                "name": "vmLoop",
+                "count": "[parameters('numberOfInstances')]"
+            },
+            "dependsOn": [
+                "[concat('Microsoft.Storage/storageAccounts/', variables('studentVMBootDiagnosticsStorageAccountName'))]",
+                "[concat('Microsoft.Storage/storageAccounts/', variables('studentVMStorageAccountName'))]",
+                "[concat('Microsoft.Network/networkInterfaces/', concat('student-', copyIndex(), '-nic'))]"
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[variables('vmSize')]"
+                },
+                "osProfile": {
+                    "computername": "[concat('student-', copyIndex(), '-vm')]",
+                    "adminUsername": "[variables('adminUsername')]",
+                    "adminPassword": "[variables('adminPassword')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "[variables('imagePublisher')]",
+                        "offer": "[variables('imageOffer')]",
+                        "sku": "[variables('windowsOSVersion')]",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "osdisk",
+                        "vhd": {
+                            "uri": "[concat('http://',variables('studentVMStorageAccountName'),'.blob.core.windows.net/',variables('vmStorageAccountContainerName'),'/','student', copyindex(), 'osdisk','.vhd')]"
+                        },
+                        "caching": "ReadWrite",
+                        "createOption": "FromImage"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [{
+                        "id": "[resourceId('Microsoft.Network/networkInterfaces', concat('student-', copyIndex(), '-nic'))]"
+                    }]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": "true",
+                        "storageUri": "[concat('http://',variables('studentVMBootDiagnosticsStorageAccountName'),'.blob.core.windows.net')]"
+                    }
+                }
+
+            }]
+    }

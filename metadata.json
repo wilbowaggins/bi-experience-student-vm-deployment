@@ -1,7 +1,7 @@
 {
-  "itemDisplayName": "Set up BI Experience Infrastructure",
-  "description": "This sets up the infrastrucutre necessary to run a DIAD or BI Experience",
-  "summary": "This template sets up student VMs needed for a DIAD or BI Experience.",
-  "githubUsername": "markgar",
-  "dateUpdated": "2015-11-02"
+    "itemDisplayName": "Set up BI Experience Infrastructure",
+    "description": "This sets up the infrastrucutre necessary to run a DIAD or BI Experience",
+    "summary": "This template sets up student VMs needed for a DIAD or BI Experience.",
+    "githubUsername": "markgar",
+    "dateUpdated": "2015-11-02"
 }
