@@ -20,12 +20,6 @@
             "description":"Password for student VMs"
          }
       },
-      "publicDNSUniqueString":{
-         "type":"string",
-         "metadata":{
-            "description":"A unique string that will be added to the public DNS.  Try MMDD.  You'll get student11028.  (October 28th, Student 1)"
-         }
-      }
    },
    "variables":{
       "location":"Central US",
@@ -74,7 +68,7 @@
          "properties":{
             "publicIPAllocationMethod":"dynamic",
             "dnsSettings":{
-               "domainNameLabel":"[concat('student', copyIndex(), parameters('publicDNSUniqueString'))]"
+               "domainNameLabel":"[concat('biexpstudent', copyIndex())]"
             }
          }
       },
