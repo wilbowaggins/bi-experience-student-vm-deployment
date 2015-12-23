@@ -34,8 +34,8 @@
         "vmStorageAccountContainerName": "vhds",
         "virtualNetworkResourceGroupName": "biexperienceresources",
         "virtualNetworkName": "biexpnet",
-        "scriptURI": "https://biexperencestd.blob.core.windows.net/scripts/serversetup.ps1",
-        "scriptFile": "serversetup.ps1",
+        "scriptURI": "https://raw.githubusercontent.com/markgar/bi-experience-student-vm-deployment/master/initializeStudentVM.ps1",
+        "scriptFile": "initializeStudentVM.ps1",
         "subnetName": "default",
         "vnetID": "[resourceId(variables('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]"
