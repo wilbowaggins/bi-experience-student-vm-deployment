@@ -53,7 +53,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "name": "[variables('studentVMBootDiagnosticsStorageAccountName')]",
-            "apiVersion": "[variables('apiVersion')]",,
+            "apiVersion": "[variables('apiVersion')]",
             "location": "[variables('location')]",
             "properties": {
                 "accountType": "Standard_LRS"
