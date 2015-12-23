@@ -2,4 +2,6 @@ REG ADD "HKLM\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37E
 
 REG ADD "HKLM\Software\Microsoft\ServerManager" /v DoNotOpenServerManagerAtLogon /t REG_DWORD /d 00000001 /f
 
- 
+mkdir \DIAD
+CD \DIAD
+xcopy \\biexpsqlp\share\*.* /s
