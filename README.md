@@ -4,9 +4,10 @@ Next, install Azure Powershell.
 
 Then run "deployTemplate.ps1" in PowerShell.  It will ask you to log in to your azure account.
 
-There are 2 parameters.  The first asks how many student VMs you'd like.
-The second asks you for a short string that will make the DNS names of the student VMs unique.  The names will come out like:
+There are 3 parameters.  The first asks how many student VMs you'd like.
+The next is the username you'd like for the VMs.
+The last is the Password.
 
-student[vmnumber][uniquestring].centralus.cloudapp.azure.com.
+biexpstudent[vmnumber].centralus.cloudapp.azure.com.
 
 Open up RDS and remote the student VMs.
