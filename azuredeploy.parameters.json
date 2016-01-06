@@ -5,7 +5,10 @@
         "numberOfInstances": {
             "value": "10"
         },
-        "publicDNSUniqueString": {
+        "adminUserName": {
+            "value": "abc"
+        },
+        "adminPassword": {
             "value": "abc"
         }
     }
