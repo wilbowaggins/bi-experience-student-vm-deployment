@@ -34,7 +34,7 @@
         "vmStorageAccountContainerName": "vhds",
         "virtualNetworkResourceGroupName": "biexperienceresources",
         "virtualNetworkName": "biexpnet",
-        "scriptURI": "https://biexperencestd.blob.core.windows.net/scripts/initializeStudentVM.ps1",
+        "scriptURI": "https://github.com/wilbowaggins/bi-experience-student-vm-deployment/blob/master/initializeStudentVM.ps1",
         "scriptFile": "initializeStudentVM.ps1",
         "subnetName": "default",
         "vnetID": "[resourceId(variables('virtualNetworkResourceGroupName'), 'Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
