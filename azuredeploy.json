@@ -19,6 +19,13 @@
             "metadata": {
                 "description": "Password for student VMs"
             }
+        },
+        "deploymentId": {
+            "type": "string",
+            "maxLength": 4
+            "metadata": {
+                "description": "4 character Unique ID for this deployment. Must be numbers and letters only. This will avoid conflicts with simultaneous deployments. This does NOT need to be historically unique."
+            }
         }
     },
     "variables": {
@@ -28,13 +35,12 @@
         "windowsOSVersion": "2012-R2-Datacenter",
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
-        "uniqueId": "[uniqueString(resourceGroup().id, deployment().name)]",
-        "studentVMStorageAccountName": "[concat('biexperiencevmstorage',variables('uniqueId'))]",
-        "studentVMBootDiagnosticsStorageAccountName": "[concat('biexperiencevmbootdiags',variables('uniqueId'))]",
+        "studentVMStorageAccountName": "[concat('biexperiencevmstorage',parameters('deploymentId'))]",
+        "studentVMBootDiagnosticsStorageAccountName": "[concat('biexperiencevmbootdiags',parameters('deploymentId'))]",
         "storageAccountType": "Premium_LRS",
         "vmStorageAccountContainerName": "vhds",
-        "virtualNetworkResourceGroupName": "[concat('biexperienceresources',variables('uniqueId'))]",
-        "virtualNetworkName": "[concat('biexpnet',variables('uniqueId'))]",
+        "virtualNetworkResourceGroupName": "[concat('biexperienceresources',parameters('deploymentId'))]",
+        "virtualNetworkName": "[concat('biexpnet',parameters('deploymentId'))]",
         "scriptURI": "https://github.com/wilbowaggins/bi-experience-student-vm-deployment/blob/master/initializeStudentVM.ps1",
         "scriptFile": "initializeStudentVM.ps1",
         "subnetName": "default",
