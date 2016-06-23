@@ -10,9 +10,6 @@
         },
         "adminPassword": {
             "value": "abc"
-        },
-        "deploymentId": {
-            "value": "abc"
         }
     }
 }
