@@ -19,6 +19,14 @@
             "metadata": {
                 "description": "Password for student VMs"
             }
+        },
+        "deploymentId": {
+            "type": "string",
+            "defaultValue": "",
+            "maxLength": 4,
+            "metadata": {
+                "description": "Optional: Unique ID to avoid conflict with other resources."
+            }
         }
     },
     "variables": {
@@ -28,8 +36,8 @@
         "windowsOSVersion": "2012-R2-Datacenter",
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
-        "studentVMStorageAccountName": "biexpvms",
-        "studentVMBootDiagnosticsStorageAccountName": "biexpboots",
+        "studentVMStorageAccountName": "[concat('biexpvms', parameters('deploymentId'))]",
+        "studentVMBootDiagnosticsStorageAccountName": "[concat('biexpboots', parameters('deploymentId'))]",
         "storageAccountType": "Premium_LRS",
         "vmStorageAccountContainerName": "vhds",
         "virtualNetworkResourceGroupName": "biexperienceresources",
