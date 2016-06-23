@@ -22,6 +22,7 @@
         },
         "deploymentId": {
             "type": "string",
+            "defaultValue": "",
             "maxLength": 4,
             "metadata": {
                 "description": "Optional: 4 character Unique ID for this deployment. Must be numbers and letters only. This will avoid conflicts with simultaneous deployments. This does NOT need to be historically unique."
