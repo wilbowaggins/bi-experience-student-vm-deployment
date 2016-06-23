@@ -24,7 +24,7 @@
     "variables": {
         "apiVersion": "2015-05-01-preview",
         "location": "Central US",
-        "vmSize": "Standard_DS11_V2",
+        "vmSize": "Standard_DS11_v2",
         "windowsOSVersion": "2012-R2-Datacenter",
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
