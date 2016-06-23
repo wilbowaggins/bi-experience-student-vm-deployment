@@ -32,7 +32,7 @@
         "studentVMBootDiagnosticsStorageAccountName": "biexpboots",
         "storageAccountType": "Premium_LRS",
         "vmStorageAccountContainerName": "vhds",
-        "virtualNetworkResourceGroupName": "biexprg",
+        "virtualNetworkResourceGroupName": "biexperienceresources",
         "virtualNetworkName": "biexpnet",
         "scriptURI": "https://github.com/wilbowaggins/bi-experience-student-vm-deployment/blob/master/initializeStudentVM.ps1",
         "scriptFile": "initializeStudentVM.ps1",
