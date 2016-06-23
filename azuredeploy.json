@@ -33,7 +33,7 @@
         "storageAccountType": "Premium_LRS",
         "vmStorageAccountContainerName": "vhds",
         "virtualNetworkResourceGroupName": "biexprg",
-        "virtualNetworkName": "biexpvnet",
+        "virtualNetworkName": "biexpnet",
         "scriptURI": "https://github.com/wilbowaggins/bi-experience-student-vm-deployment/blob/master/initializeStudentVM.ps1",
         "scriptFile": "initializeStudentVM.ps1",
         "subnetName": "default",
