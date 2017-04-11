@@ -19,14 +19,6 @@
             "metadata": {
                 "description": "Password for student VMs"
             }
-        },
-        "deploymentId": {
-            "type": "string",
-            "defaultValue": "",
-            "maxLength": 4,
-            "metadata": {
-                "description": "Optional: Unique ID to avoid conflict with other resources."
-            }
         }
     },
     "variables": {
