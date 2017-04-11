@@ -33,7 +33,7 @@
         "apiVersion": "2015-05-01-preview",
         "location": "Central US",
         "vmSize": "Standard_DS11_v2",
-        "windowsOSVersion": "2012-R2-Datacenter",
+        "windowsOSVersion": "2016-Datacenter",
         "imagePublisher": "MicrosoftWindowsServer",
         "imageOffer": "WindowsServer",
         "studentVMStorageAccountName": "[concat('biexpvms', parameters('deploymentId'))]",
@@ -177,7 +177,7 @@
                     "properties": {
                         "publisher": "Microsoft.Compute",
                         "type": "CustomScriptExtension",
-                        "typeHandlerVersion": "1.2",
+                        "typeHandlerVersion": "1.8",
                         "settings": {
                             "fileUris": [
                                 "[variables('scriptURI')]"
