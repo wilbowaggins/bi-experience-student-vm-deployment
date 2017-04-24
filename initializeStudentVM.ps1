@@ -13,7 +13,7 @@ Set-ItemProperty -Path $HomepageKey -Name "Start Page" -Value "http://powerbi.co
 
 mkdir \DIAD
 
-$Url = "https://biexperencestd.blob.core.windows.net/resources/DIADMaterials.zip"
+$Url = "http://aka.ms/diad"
 $LocalPath = "C:\DIAD\DIADMaterials.zip"
 $Wget = New-Object System.Net.WebClient
 $Wget.DownloadFile($Url, $LocalPath)
