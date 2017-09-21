@@ -62,7 +62,7 @@
         {
             "apiVersion": "2015-05-01-preview",
             "type": "Microsoft.Network/publicIPAddresses",
-            "name": "[concat('student-', copyIndex(), '-publicip')]",
+            "name": "[concat('studentvm-', copyIndex(), '-publicip')]",
             "location": "[variables('location')]",
             "copy": {
                 "name": "publicIPLoop",
@@ -71,21 +71,21 @@
             "properties": {
                 "publicIPAllocationMethod": "dynamic",
                 "dnsSettings": {
-                    "domainNameLabel": "[concat('biexpstudent', copyIndex())]"
+                    "domainNameLabel": "[concat('studentvm', copyIndex())]"
                 }
             }
         },
         {
             "apiVersion": "2015-05-01-preview",
             "type": "Microsoft.Network/networkInterfaces",
-            "name": "[concat('student-', copyIndex(), '-nic')]",
+            "name": "[concat('studentvm-', copyIndex(), '-nic')]",
             "location": "[variables('location')]",
             "copy": {
                 "name": "nicLoop",
                 "count": "[parameters('numberOfInstances')]"
             },
             "dependsOn": [
-                "[concat('Microsoft.Network/publicIPAddresses/', 'student-', copyIndex(), '-publicip')]"
+                "[concat('Microsoft.Network/publicIPAddresses/', 'studentvm-', copyIndex(), '-publicip')]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -94,7 +94,7 @@
                         "properties": {
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('student-', copyIndex(), '-publicip'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat('studentvm-', copyIndex(), '-publicip'))]"
                             },
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
@@ -107,7 +107,7 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[concat('student-', copyIndex(), '-vm')]",
+            "name": "[concat('studentvm-', copyIndex(), '-vm')]",
             "location": "[variables('location')]",
             "copy": {
                 "name": "vmLoop",
@@ -116,14 +116,14 @@
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', variables('studentVMBootDiagnosticsStorageAccountName'))]",
                 "[concat('Microsoft.Storage/storageAccounts/', variables('studentVMStorageAccountName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', concat('student-', copyIndex(), '-nic'))]"
+                "[concat('Microsoft.Network/networkInterfaces/', concat('studentvm-', copyIndex(), '-nic'))]"
             ],
             "properties": {
                 "hardwareProfile": {
                     "vmSize": "[variables('vmSize')]"
                 },
                 "osProfile": {
-                    "computername": "[concat('student-', copyIndex(), '-vm')]",
+                    "computername": "[concat('studentvm-', copyIndex(), '-vm')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]"
                 },
@@ -146,7 +146,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat('student-', copyIndex(), '-nic'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat('studentvm-', copyIndex(), '-nic'))]"
                         }
                     ]
                 },
@@ -160,11 +160,11 @@
             "resources": [
                 {
                     "type": "Microsoft.Compute/virtualMachines/extensions",
-                    "name": "[concat('student-', copyIndex(), '-vm','/CustomScriptExtension')]",
+                    "name": "[concat('studentvm-', copyIndex(), '-vm','/CustomScriptExtension')]",
                     "apiVersion": "2015-05-01-preview",
                     "location": "[resourceGroup().location]",
                     "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', 'student-', copyIndex(), '-vm')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', 'studentvm-', copyIndex(), '-vm')]"
                     ],
                     "properties": {
                         "publisher": "Microsoft.Compute",
